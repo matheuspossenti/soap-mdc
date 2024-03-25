@@ -1,0 +1,46 @@
+<definitions
+    name="MDC_Service"
+    targetNamespace="http://tempuri.org/"
+    xmlns:tns="http://tempuri.org/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+    <message name="calculateMDCRequest">
+        <part name="x" type="xsd:int"/>
+        <part name="y" type="xsd:int"/>
+    </message>
+
+    <message name="calculateMDCResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+
+    <portType name="MDC_PortType">
+        <operation name="calculateMDC">
+            <input message="tns:calculateMDCRequest"/>
+            <output message="tns:calculateMDCResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="MDC_Binding" type="tns:MDC_PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="calculateMDC">
+            <soap:operation soapAction="http://tempuri.org/calculateMDC"/>
+            <input>
+                <soap:body use="encoded" namespace="http://tempuri.org/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="http://tempuri.org/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="MDC_Service">
+        <port name="MDC_Port" binding="tns:MDC_Binding">
+            <soap:address location="http://localhost:8000/mdc"/>
+        </port>
+    </service>
+
+</definitions>
